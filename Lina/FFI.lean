@@ -21,13 +21,13 @@ opaque leanHttpRequestMethod : HttpRequest → String
 opaque leanHttpObjectPath : HttpRequest → String
 
 @[extern "lean_minor_version"]
-opaque leanMinorVersion : HttpRequest → IO USize
+opaque leanMinorVersion : HttpRequest → USize
 
 @[extern "lean_major_version"]
-opaque leanMajorVersion : HttpRequest → IO USize
+opaque leanMajorVersion : HttpRequest → USize
 
 @[extern "lean_header_count"]
-opaque leanHeaderCount : HttpRequest → IO USize
+opaque leanHeaderCount : HttpRequest → USize
 
 @[extern "lean_header_name"]
 opaque leanHeaderName : HttpRequest → UInt32 → String

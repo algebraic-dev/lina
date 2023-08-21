@@ -102,22 +102,22 @@ lean_obj_res lean_http_object_path(b_lean_obj_arg http_object) {
   return lean_mk_string(str);
 }
 
-lean_obj_res lean_minor_version(b_lean_obj_arg http_object) {
+size_t lean_minor_version(b_lean_obj_arg http_object) {
   lean_http_object *o = unbox(http_object);
 
-  return lean_io_result_mk_ok(lean_box_usize(o->minor_version));
+  return o->minor_version;
 }
 
-lean_obj_res lean_major_version(b_lean_obj_arg http_object) {
+size_t lean_major_version(b_lean_obj_arg http_object) {
   lean_http_object *o = unbox(http_object);
 
-  return lean_io_result_mk_ok(lean_box_usize(o->major_version));
+  return o->major_version;
 }
 
-lean_obj_res lean_header_count(b_lean_obj_arg http_object) {
+size_t lean_header_count(b_lean_obj_arg http_object) {
   lean_http_object *o = unbox(http_object);
 
-  return lean_io_result_mk_ok(lean_box_usize(o->header_count));
+  return o->header_count;
 }
 
 lean_obj_res lean_header_name(b_lean_obj_arg http_object, uint32_t i) {
