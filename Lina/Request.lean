@@ -19,13 +19,14 @@ inductive Result (α : Type) where
 namespace Request
 
 open Lina.Request.Unsafe
+open Lina.Version
 
-def parse (str : String) : IO (Result Request) := do
+def parse (str : String) : IO (Except String Request) := do
   let (http, result) ← leanParseHttp str
 
   match result with
-  | 4294967294 => pure $ Result.error "Incomplete request"
-  | 4294967295 => pure $ Result.error "Invalid request"
+  | 4294967294 => pure $ Except.error "Incomplete request"
+  | 4294967295 => pure $ Except.error "Invalid request"
   | sizeOfPart => do
       let major ← leanMajorVersion http
       let minor ← leanMinorVersion http
@@ -43,7 +44,7 @@ def parse (str : String) : IO (Result Request) := do
       let body := str.drop (sizeOfPart.toNat)
       let path := leanHttpObjectPath http
       let version := { major := major.toNat, minor := minor.toNat }
-      pure $ Result.success { version, method, path, headers, body }
+      pure $ Except.ok { version, method, path, headers, body }
 
 end Request
 end Lina
