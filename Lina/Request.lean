@@ -6,7 +6,7 @@ namespace Lina
 structure Request where
   used    : UInt32
   request : Lina.Request.Unsafe.HttpRequest
-  body    : String
+  str     : String
 
 inductive Result (α : Type) where
   | success : α → Result α
@@ -24,7 +24,7 @@ def parse (str : String) : IO (Except String Request) := do
   match result with
   | 4294967294 => pure $ Except.error "Incomplete request"
   | 4294967295 => pure $ Except.error "Invalid request"
-  | sizeOfPart => pure $ Except.ok { used := sizeOfPart, request, body := str.drop (sizeOfPart.toNat) }
+  | sizeOfPart => pure $ Except.ok { used := sizeOfPart, request, str := str }
 
 def method (req : Request) : String := 
   leanHttpRequestMethod req.request
@@ -36,6 +36,9 @@ def version (req : Request) : Version :=
   let major := leanMajorVersion req.request
   let minor := leanMinorVersion req.request
   Version.mk (major.toNat) (minor.toNat)
+
+def body (req : Request) : String :=
+  req.str.drop (req.used.toNat)
 
 partial def headers (req : Request) : Array (String × String) := 
   let size := leanHeaderCount req.request
