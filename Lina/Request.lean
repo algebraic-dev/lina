@@ -1,11 +1,7 @@
 import Lina.FFI
+import Lina.Version
 
 namespace Lina
-
-structure Version where
-  major : Nat
-  minor : Nat
-  deriving Repr
 
 structure Request where
   version : Version
