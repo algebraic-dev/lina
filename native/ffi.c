@@ -89,7 +89,10 @@ lean_obj_res lean_http_request_method(b_lean_obj_arg http_object) {
   memcpy(str, o->method, o->method_len);
   str[o->method_len] = '\0';
 
-  return lean_mk_string(str);
+  lean_obj_res res = lean_mk_string(str);
+  free(str);
+
+  return res;
 }
 
 lean_obj_res lean_http_object_path(b_lean_obj_arg http_object) {
@@ -99,7 +102,10 @@ lean_obj_res lean_http_object_path(b_lean_obj_arg http_object) {
   memcpy(str, o->path, o->path_len);
   str[o->path_len] = '\0';
 
-  return lean_mk_string(str);
+  lean_obj_res res = lean_mk_string(str);
+  free(str);
+
+  return res;
 }
 
 size_t lean_minor_version(b_lean_obj_arg http_object) {
@@ -127,7 +133,10 @@ lean_obj_res lean_header_name(b_lean_obj_arg http_object, uint32_t i) {
   memcpy(str, o->headers[i].name, o->headers[i].name_len);
   str[o->headers[i].name_len] = '\0';
 
-  return lean_mk_string(str);
+  lean_obj_res res = lean_mk_string(str);
+  free(str);
+
+  return res;
 }
 
 lean_obj_res lean_header_value(b_lean_obj_arg http_object, uint32_t i) {
@@ -137,5 +146,8 @@ lean_obj_res lean_header_value(b_lean_obj_arg http_object, uint32_t i) {
   memcpy(str, o->headers[i].value, o->headers[i].value_len);
   str[o->headers[i].value_len] = '\0';
 
-  return lean_mk_string(str);
+  lean_obj_res res = lean_mk_string(str);
+  free(str);
+
+  return res;
 }

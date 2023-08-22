@@ -15,25 +15,25 @@ def HttpRequest : Type := Parse.Nonempty.type
 opaque leanParseHttp : String → IO (HttpRequest × UInt32)
 
 @[extern "lean_http_request_method"]
-opaque leanHttpRequestMethod : HttpRequest → String
+opaque leanHttpRequestMethod : (s: @& HttpRequest) → String
 
 @[extern "lean_http_object_path"]
-opaque leanHttpObjectPath : HttpRequest → String
+opaque leanHttpObjectPath :  (s: @& HttpRequest) → String
 
 @[extern "lean_minor_version"]
-opaque leanMinorVersion : HttpRequest → USize
+opaque leanMinorVersion : (s: @& HttpRequest) → USize
 
 @[extern "lean_major_version"]
-opaque leanMajorVersion : HttpRequest → USize
+opaque leanMajorVersion : (s: @& HttpRequest) → USize
 
 @[extern "lean_header_count"]
-opaque leanHeaderCount : HttpRequest → USize
+opaque leanHeaderCount : (s: @& HttpRequest) → USize
 
 @[extern "lean_header_name"]
-opaque leanHeaderName : HttpRequest → UInt32 → String
+opaque leanHeaderName : (s: @& HttpRequest) → UInt32 → String
 
 @[extern "lean_header_value"]
-opaque leanHeaderValue : HttpRequest → UInt32 → String
+opaque leanHeaderValue : (s: @& HttpRequest) → UInt32 → String
 
 end Unsafe
 end Request
